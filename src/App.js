@@ -11,11 +11,15 @@ function App() {
   const [xTurn, setXTurn] = useState(true);
   const [hasWinnerState, setHasWinnerState] =useState(false); //false==no winner true = winner
 
-  const resetGrid = () => setGrid([
+  const resetGame = () => {
+    setGrid([
      [null,null,null],
      [null,null,null],
-     [null,null,null]
-  ]);
+     [null,null,null]]
+    );
+    setXTurn(true);
+    setHasWinnerState(false);
+  }
 
   const setGridState = (x, y) => {
     if(grid[x][y]==null && !hasWinnerState){
@@ -28,17 +32,27 @@ function App() {
   
 
   function checkGameState(cellState){
+    const lines =[
+      [[0,0],[0,1],[0,2]],//top row
+      [[1,0],[1,1],[1,2]],//middle row
+      [[2,0],[2,1],[2,2]],//bottom row
+      [[0,0],[1,0],[2,0]],//left column
+      [[0,1],[1,1],[2,1]],//middle column
+      [[0,2],[1,2],[2,2]],//right column
+      [[0,0],[1,1],[2,2]],//diagonal top left to bottome right
+      [[2,0],[1,1],[0,2]],//diagonal bottom left to top right
+    ];
 
-    return (
-      (cellState===grid[0][0] && cellState===grid[0][1] && cellState===grid[0][2]) || //top row
-      (cellState===grid[1][0] && cellState===grid[1][1] && cellState===grid[1][2]) || //middle row
-      (cellState===grid[2][0] && cellState===grid[2][1] && cellState===grid[2][2]) || //bottom row
-      (cellState===grid[0][0] && cellState===grid[1][0] && cellState===grid[2][0]) || //left column
-      (cellState===grid[0][1] && cellState===grid[1][1] && cellState===grid[2][1]) || //middle column
-      (cellState===grid[0][2] && cellState===grid[1][2] && cellState===grid[2][2]) || //right column
-      (cellState===grid[0][0] && cellState===grid[1][1] && cellState===grid[2][2]) || //diagonal top left to bottome right
-      (cellState===grid[0][2] && cellState===grid[1][1] && cellState===grid[2][0])    //diagonal bottom left to top right
-    );
+    for(var x=0; x<lines.length;x++){
+      console.log();
+      if(grid[lines[x][0][0]][lines[x][0][1]]!=null && grid[lines[x][0][0]][lines[x][0][1]]===grid[lines[x][1][0]][lines[x][1][1]] && grid[lines[x][1][0]][lines[x][1][1]]===grid[lines[x][2][0]][lines[x][2][1]]){
+        //Draw line code here
+        return true;
+      }
+    }
+
+    return false;
+    
   }
 
   return (
@@ -60,13 +74,21 @@ function App() {
             <Cell cell={[2,2]} value={grid[2][2]} onClick={() => setGridState(2,2)}/>
             </div>
         </div>
+        <button onClick={resetGame}>Reset</button>
     </div>
   );
 }
 
 const Cell = (props) =>{
+  function drawLine(direction){
+    //0= sideways 1= vertical 2=diagonal top left bottom right 3=diagonal bottom left top right
+
+  }
+
   return(
-      <button type="button" className='TTTButton' onClick={props.onClick}>{props.value}</button>
+      <button type="button" className='TTTButton' onClick={props.onClick}>
+        {props.value}
+      </button>
   )
 }
 
