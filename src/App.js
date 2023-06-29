@@ -58,6 +58,11 @@ function App() {
   return (
     <div className="App">
         <div>
+          {!hasWinnerState ? <p className='textDisplay'>Up Next: {xTurn ? 'X' : 'O'}</p> : <></>}
+          {hasWinnerState ? <p className='textDisplay'>{!xTurn ? 'Winner: X' : 'Winner: O'} </p> : <></>}
+          <button className="resetButton" onClick={resetGame}>Reset</button>
+        </div>
+        <div>
           <div className='row'>
             <Cell cell={[0,0]} value={grid[0][0]} onClick={() => setGridState(0,0)}/>
             <Cell cell={[0,1]} value={grid[0][1]} onClick={() => setGridState(0,1)}/>
@@ -74,7 +79,6 @@ function App() {
             <Cell cell={[2,2]} value={grid[2][2]} onClick={() => setGridState(2,2)}/>
             </div>
         </div>
-        <button onClick={resetGame}>Reset</button>
     </div>
   );
 }

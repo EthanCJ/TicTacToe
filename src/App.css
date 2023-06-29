@@ -7,9 +7,24 @@
 }
 
 .TTTButton{
-  width: 10vh;
-  height: 10vh;
+  width: 25vh;
+  height: 25vh;
+  font-size: 10vh;
   border-width: 2px;
-  border-color: black;
+  border-color:aliceblue;
   vertical-align: top;
 }
+
+.textDisplay{
+  font-size: 5vh;
+  display: inline-block;
+  padding: 0 5vh;
+}
+
+.resetButton{
+  vertical-align: text-bottom;
+  height: 5vh;
+  width: 10vh;
+  font-size: 3vh;
+}
+
